@@ -44,8 +44,8 @@ local function encode(tbl, boundary)
 	for key, part in pairs(tbl) do
 		table.insert(request, string.format("--%s\r\n", boundary))
 		local partType = type(part)
-		if (partType == "string" or partType == "number") then
-			appendData(request, key, part, {})
+		if (partType == "string" or partType == "number" or partType == "boolean") then
+			appendData(request, key, tostring(part), {})
 		elseif (partType == "table") then
 			assert(part.data, "no data")
 			local extra = {
